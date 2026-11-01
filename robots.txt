@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sebiglesias.com.ar/freelance-rate-calculator/sitemap.xml

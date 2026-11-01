@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1099 vs W2 Hourly Rate & Tax Calculator | Freelance Rate Converter</title>
+  <meta name="description" content="Calculate what 1099 contractor hourly rate you need to match a W2 salary. Accounts for 15.3% self-employment tax, self-paid health insurance, 401(k) matching, and unpaid PTO.">
+  <meta name="keywords" content="1099 vs w2 calculator, convert w2 salary to 1099 hourly rate, freelance rate calculator, 1099 self employment tax calculator, 1099 to w2 equivalent">
+  <link rel="canonical" href="https://sebiglesias.com.ar/freelance-rate-calculator/">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#090E17">
+  <link rel="apple-touch-icon" href="icon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="1099 vs W2 Hourly Rate & Tax Calculator">
+  <meta property="og:description" content="Find out your true 1099 hourly rate equivalent to match your W2 salary.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sebiglesias.com.ar/freelance-rate-calculator/">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="1099 vs W2 Hourly Rate Calculator">
+  <meta name="twitter:description" content="Calculate exact contractor hourly rates to replace employee salary and benefits.">
+
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2BNDBQP0W7');
+  </script>
+
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-3381238987477190">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "1099 vs W2 Freelance Rate Calculator",
+        "url": "https://sebiglesias.com.ar/freelance-rate-calculator/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "description": "Financial tax utility converting W-2 employee wages into independent 1099 contractor billing rates factoring in self-employment taxes and benefits.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does a 1099 hourly rate need to be higher than W2?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "As an independent contractor (1099), you must pay the employer portion of FICA payroll taxes (an additional 7.65%), pay for your own health insurance ($500-$800/mo), purchase business tools, and absorb unbilled days (vacation, holidays, and sick days). Typically, a 1099 rate must be 35% to 50% higher than the W2 hourly equivalent to achieve identical take-home pay."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is self-employment tax calculated for 1099 contractors?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Self-employment tax is 15.3% on net earnings (12.4% for Social Security up to the federal wage cap, plus 2.9% for Medicare with no wage ceiling). On W-2, your employer pays half (7.65%) and you pay half (7.65%)."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="backlink-bar">
+      <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+    </div>
+
+    <header class="header">
+      <div class="header-badge">💼 Career & Contractor Tax Utility</div>
+      <h1>1099 vs W2 Rate Calculator<span class="accent">.</span></h1>
+      <p class="sub">Convert W2 salary to 1099 hourly rate · taxes, healthcare & PTO breakdown</p>
+    </header>
+
+    <!-- Big Result Hero Card -->
+    <section class="card hero-card">
+      <div class="hero-top">
+        <div class="hero-col">
+          <span class="hero-sublabel">Target W2 Annual Salary</span>
+          <div class="hero-val-wrap">
+            <span class="currency-symbol">$</span>
+            <span class="hero-number" id="disp-w2-salary">100,000</span>
+          </div>
+          <span class="hero-detail" id="disp-w2-hourly">~$48.08 / hour equivalent</span>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-col highlight">
+          <span class="hero-sublabel">Required 1099 Hourly Rate</span>
+          <div class="hero-val-wrap">
+            <span class="currency-symbol">$</span>
+            <span class="hero-number" id="disp-1099-rate">71.50</span>
+            <span class="hero-unit">/ hr</span>
+          </div>
+          <span class="hero-detail" id="disp-premium-pct">+48% premium required</span>
+        </div>
+      </div>
+
+      <div class="breakdown-pills" id="breakdown-pills">
+        <!-- Self-employment gap, PTO, Health -->
+      </div>
+    </section>
+
+    <!-- Controls & Inputs -->
+    <div class="inputs-grid">
+      <!-- Card 1: W2 Compensation -->
+      <section class="card">
+        <h2>1. Current / Target W-2 Job</h2>
+
+        <div class="field-group">
+          <label for="w2-salary-input">Annual Base Salary ($ USD)</label>
+          <input type="number" id="w2-salary-input" value="100000" min="20000" step="5000">
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="w2-pto-weeks">Paid Weeks Off (PTO + Holidays)</label>
+            <input type="number" id="w2-pto-weeks" value="4" min="0" max="10" step="1">
+            <span class="hint">Standard is 3–4 weeks (15–20 days)</span>
+          </div>
+          <div class="field-group">
+            <label for="w2-401k-match">401(k) Employer Match (%)</label>
+            <input type="number" id="w2-401k-match" value="3" min="0" max="10" step="1">
+            <span class="hint">e.g. 3% match on salary</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 2: 1099 Contractor Reality -->
+      <section class="card">
+        <h2>2. Independent Contractor Costs</h2>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="health-monthly">Monthly Health Insurance ($)</label>
+            <input type="number" id="health-monthly" value="550" min="0" step="50">
+            <span class="hint">Self-paid ACA individual/family plan</span>
+          </div>
+          <div class="field-group">
+            <label for="biz-expenses">Annual Business Expenses ($)</label>
+            <input type="number" id="biz-expenses" value="3000" min="0" step="500">
+            <span class="hint">Laptop, internet, software, legal</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="billable-hours-week">Billable Hours / Week</label>
+            <input type="number" id="billable-hours-week" value="36" min="10" max="50" step="1">
+            <span class="hint">Realistic hours billed (excluding admin)</span>
+          </div>
+          <div class="field-group">
+            <label for="unpaid-pto-weeks">Planned Unpaid Weeks Off</label>
+            <input type="number" id="unpaid-pto-weeks" value="4" min="0" max="12" step="1">
+            <span class="hint">Vacation, sick days, gap weeks</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Comparative Table -->
+    <section class="card">
+      <h2>Annual Compensation & Tax Breakdown</h2>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>W-2 Employee</th>
+              <th>1099 Contractor</th>
+              <th>Impact on Contractor</th>
+            </tr>
+          </thead>
+          <tbody id="comp-tbody">
+            <!-- Dynamic comparison -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- AdSense Responsive Placement -->
+    <div class="adsense-wrap" style="text-align: center; margin: 2rem 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="card faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>What is the standard rule of thumb for 1099 vs W2?</h3>
+        <p>A quick rule of thumb used by accountants is to divide your target W2 annual salary by 1,000 (e.g. $100,000 salary ➔ $100/hr 1099 rate) or add 40% to 50% to your W2 hourly equivalent ($50/hr W2 ➔ $70–$75/hr 1099). This covers self-employment tax, uncompensated downtime, healthcare, and accounting expenses.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can an S-Corporation lower my 1099 taxes?</h3>
+        <p>Yes. Once net freelance profits exceed $80,000 to $100,000, electing S-Corp taxation allows you to pay yourself a reasonable W2 salary and take the remaining profits as distributions, which are exempt from the 15.3% self-employment tax. This routinely saves contractors $5,000 to $12,000 annually.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Part of the <a href="https://sebiglesias.com.ar">sebiglesias.com.ar</a> utility tools suite.</p>
+      <p class="copy">Free tax & career calculator · Not formal tax advice</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

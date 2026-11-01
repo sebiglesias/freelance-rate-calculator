@@ -1,0 +1,15 @@
+{
+  "name": "1099 vs W2 Rate Calculator",
+  "short_name": "1099Calc",
+  "start_url": "/freelance-rate-calculator/",
+  "display": "standalone",
+  "background_color": "#090E17",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
