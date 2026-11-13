@@ -7,6 +7,17 @@
   <meta name="description" content="Calculate what 1099 contractor hourly rate you need to match a W2 salary. Accounts for 15.3% self-employment tax, self-paid health insurance, 401(k) matching, and unpaid PTO.">
   <meta name="keywords" content="1099 vs w2 calculator, convert w2 salary to 1099 hourly rate, freelance rate calculator, 1099 self employment tax calculator, 1099 to w2 equivalent">
   <link rel="canonical" href="https://sebiglesias.com.ar/freelance-rate-calculator/">
+  <link rel="alternate" hreflang="en" href="https://sebiglesias.com.ar/freelance-rate-calculator/">
+  <link rel="alternate" hreflang="es" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=es">
+  <link rel="alternate" hreflang="de" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=de">
+  <link rel="alternate" hreflang="fr" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=fr">
+  <link rel="alternate" hreflang="it" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=it">
+  <link rel="alternate" hreflang="pt" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=pt">
+  <link rel="alternate" hreflang="nl" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=nl">
+  <link rel="alternate" hreflang="sv" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=sv">
+  <link rel="alternate" hreflang="da" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=da">
+  <link rel="alternate" hreflang="pl" href="https://sebiglesias.com.ar/freelance-rate-calculator/?lang=pl">
+  <link rel="alternate" hreflang="x-default" href="https://sebiglesias.com.ar/freelance-rate-calculator/">
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
@@ -88,8 +99,20 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="backlink-bar">
+    <div class="backlink-bar" style="display:flex;align-items:center;justify-content:space-between">
       <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+      <select id="lang-select" aria-label="Language" style="background:#24221C;border:1px solid rgba(242,239,230,.18);color:#F2EFE6;font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 6px;border-radius:3px;cursor:pointer;margin-left:auto">
+  <option value="en">🇺🇸 EN</option>
+  <option value="es">🇪🇸 ES</option>
+  <option value="de">🇩🇪 DE</option>
+  <option value="fr">🇫🇷 FR</option>
+  <option value="it">🇮🇹 IT</option>
+  <option value="pt">🇵🇹 PT</option>
+  <option value="nl">🇳🇱 NL</option>
+  <option value="sv">🇸🇪 SV</option>
+  <option value="da">🇩🇰 DA</option>
+  <option value="pl">🇵🇱 PL</option>
+</select>
     </div>
 
     <header class="header">
@@ -306,5 +329,41 @@
   </div>
 
   <script src="app.js"></script>
+
+<script>
+/* I18N_AUTO_ENGINE */
+(function(){
+  const DICT = {"en": {"title": "1099 vs W2 Freelance Rate Calculator<span class='accent'>.</span>", "sub": "Self-employment tax, health insurance, PTO & target billable hourly rate"}, "es": {"title": "Calculadora Tarifa Hora Freelance vs Sueldo<span class='accent'>.</span>", "sub": "Impuestos autónomos, vacaciones no pagas, gastos y valor hora equivalente"}, "de": {"title": "Stundensatzrechner Freelancer vs. Festanstellung<span class='accent'>.</span>", "sub": "Steuern, Krankenversicherung, Urlaubstage & benötigter Honorarsatz"}, "fr": {"title": "Calculateur TJM / Tarif Horaire Freelance<span class='accent'>.</span>", "sub": "Charges sociales, congés non payés, frais pro et taux horaire cible"}, "it": {"title": "Calcolatore Tariffa Oraria Freelance vs Dipendente<span class='accent'>.</span>", "sub": "Tasse, contributi, ferie non retribuite e tariffa oraria netta equivalente"}, "pt": {"title": "Calculadora Valor Hora Freelancer (PJ vs CLT)<span class='accent'>.</span>", "sub": "Impostos, plano de saúde, férias e taxa horária necessária"}, "nl": {"title": "ZZP Uurtarief vs Loondienst Calculator<span class='accent'>.</span>", "sub": "Belasting, verzekeringen, vakantiedagen en benodigd facturabel uurtarief"}, "sv": {"title": "Frilans Timpris vs Fast Lön Kalkylator<span class='accent'>.</span>", "sub": "Egenavgifter, semester, omkostnader och nödvändigt debiterbart timpris"}, "da": {"title": "Freelance Timepris vs Fastansat Beregner<span class='accent'>.</span>", "sub": "Skat, feriepenge, forsikring og nødvendig fakturerbar timepris"}, "pl": {"title": "Kalkulator Stawki Godzinowej B2B vs Etat<span class='accent'>.</span>", "sub": "Podatki, składki, bezpłatny urlop i docelowa stawka godzinowa"}};
+  const h1El = document.querySelector('h1');
+  const subEl = document.querySelector('.sub') || document.querySelector('header p');
+  const selEl = document.getElementById('lang-select');
+  function applyLang(lang) {
+    const entry = DICT[lang] || DICT.en;
+    document.documentElement.lang = lang;
+    if (h1El && entry.title) h1El.innerHTML = entry.title;
+    if (subEl && entry.sub) subEl.textContent = entry.sub;
+    if (lang !== 'en' && entry.sub) {
+      document.title = (h1El ? h1El.textContent : '') + ' — ' + entry.sub;
+    }
+  }
+  const params = new URLSearchParams(window.location.search);
+  const init = params.get('lang') || localStorage.getItem('freelance-rate-calculator-lang') || 'en';
+  const valid = DICT[init] ? init : 'en';
+  if (selEl) {
+    selEl.value = valid;
+    selEl.addEventListener('change', function(e) {
+      const nl = e.target.value;
+      localStorage.setItem('freelance-rate-calculator-lang', nl);
+      const u = new URL(window.location.href);
+      if (nl === 'en') u.searchParams.delete('lang');
+      else u.searchParams.set('lang', nl);
+      window.history.replaceState({}, '', u);
+      applyLang(nl);
+    });
+  }
+  applyLang(valid);
+})();
+</script>
+
 </body>
 </html>
